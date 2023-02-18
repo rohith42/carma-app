@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
+import { Provider as PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper';
+import { COLORS } from './styles/Colors';
 
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
@@ -52,11 +54,21 @@ export default function App() {
   return (
     <>
       <StatusBar style="dark" />
-      <AppContextProvider>
-        <Navigation />
-      </AppContextProvider>
+      <PaperProvider theme={theme}>
+        <AppContextProvider>
+          <Navigation />
+        </AppContextProvider>
+      </PaperProvider>
     </>
   );
+}
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    primary: COLORS.green,
+    onPrimary: COLORS.white
+  }
 }
 
 const styles = StyleSheet.create({
