@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AppContext from '../store/AppContext';
 import {
     View,
     KeyboardAvoidingView,
@@ -10,15 +11,22 @@ import {
     Pressable,
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");  
   const [pass, setPass] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { setCookie } = useContext(AppContext);
 
   function login() {
     // TODO: IMPLEMENT THIS!!!
+    setLoading(true);
     console.log("Login user!");
+    setCookie("Random Cookie");
+    setLoading(false);
   }
   
   return (
@@ -40,7 +48,7 @@ export default function LoginScreen({ navigation }) {
             secureTextEntry
           />
           <View style={styles.btnContainer} >
-            <Button mode='contained' onPress={login}>
+            <Button mode='contained' onPress={login} loading={loading}>
               Log in
             </Button>
           </View>

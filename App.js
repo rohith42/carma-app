@@ -7,9 +7,11 @@ import { StatusBar } from 'expo-status-bar';
 import { Provider as PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper';
 import { COLORS } from './styles/Colors';
 
+import AppContext, { AppContextProvider } from './store/AppContext';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
-import AppContext, { AppContextProvider } from './store/AppContext';
+import ChooseDomainsScreen from './screens/ChooseDomainsScreen';
+
 
 const Stack = createNativeStackNavigator();
 // Stack to authenticate users (login/signup)
@@ -25,6 +27,14 @@ function AuthStack() {
         name="SignupScreen" 
         component={SignupScreen}
         options={{ title:'Sign up' }} 
+      />
+      <Stack.Screen 
+        name="ChooseDomainsScreen" 
+        component={ChooseDomainsScreen}
+        options={{ 
+          title:'Select domains',
+          headerBackVisible: false 
+        }} 
       />
     </Stack.Navigator>
   );

@@ -16,11 +16,7 @@ export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState("");  
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
-
-  function register() {
-    // TODO: IMPLEMENT THIS!!!
-    console.log("Register user!");
-  }
+  const [loading, setLoading] = useState(false);
   
   return (
     <KeyboardAvoidingView
@@ -46,7 +42,7 @@ export default function SignupScreen({ navigation }) {
             secureTextEntry
           />
           <View style={styles.btnContainer} >
-            <Button mode='contained' onPress={register}>
+            <Button mode='contained' onPress={() => {navigation.navigate('ChooseDomainsScreen')}}>
               Sign up
             </Button>
           </View>
