@@ -10,6 +10,7 @@ import {
     Pressable,
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import { COLORS } from '../styles/Colors';
 
 
 export default function SignupScreen({ navigation }) {
@@ -30,12 +31,16 @@ export default function SignupScreen({ navigation }) {
             placeholder='Full name' 
             value={name} onChangeText={setName}
           />
+          <View style={styles.spacing} />
           <TextInput 
             mode='outlined' label='Email'
             placeholder='example.email@gmail.com' 
             value={email} onChangeText={setEmail}
             keyboardType='email-address'
           />
+          <Text style={styles.reminder}>
+            Please enter the email where you get your receipts
+          </Text>
           <TextInput 
             mode='outlined' label='Password'
             value={pass} onChangeText={setPass}
@@ -74,5 +79,14 @@ const styles = StyleSheet.create({
   signup:{
     fontWeight: "100",
     textDecorationLine: 'underline'
+  },
+  reminder: {
+    fontSize: 14,
+    color: COLORS.green,
+    marginVertical: 5,
+  },
+  spacing: {
+    width: '100%',
+    height: 5
   }
 });
