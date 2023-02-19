@@ -20,14 +20,13 @@ export async function login(email, password) {
 }
 
 // Signup user.
-export async function signup(token, username, password, email, full_name) {
+export async function signup(email, password, full_name) {
     const route = "user/signup";
     const url = `${BASE_URL}/${route}`;
     const response = await axios.post(url, {
-        username: username,
-        password: password,
         email: email,
+        password: password,
         full_name: full_name
-    }, get_headers(token));
+    });
     return response.data;
 }

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { COLORS } from '../styles/Colors';
+import { signup } from '../api/users.js';
 
 
 export default function SignupScreen({ navigation }) {
@@ -19,10 +20,12 @@ export default function SignupScreen({ navigation }) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function register() {
+  async function register() {
     // TODO: IMPLEMENT THIS!!!
     setLoading(true);
     console.log("Register user and log them in!");
+    let data = await signup(email, pass, name);
+    console.log(data);
     setLoading(false);
     navigation.navigate('ChooseDomainsScreen', { cookie: "RANDOM COOKIE" });
   }
