@@ -11,6 +11,9 @@ import AppContext, { AppContextProvider } from './store/AppContext';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import ChooseDomainsScreen from './screens/ChooseDomainsScreen';
+import InsightsScreen from './screens/InsightsScreen';
+import RewardsScreen from './screens/RewardsScreen';
+import LeaderboardScreen from './screens/LeaderboardScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +48,21 @@ const Tab = createBottomTabNavigator();
 function AuthenticatedStack() {
   return (
     <Tab.Navigator>
+      <Tab.Screen
+        name="InsightsScreen" 
+        component={InsightsScreen}
+        options={{ title:'Insights' }} 
+      /> 
+      <Tab.Screen
+        name="RewardsScreen" 
+        component={RewardsScreen}
+        options={{ title:'Rewards' }} 
+      /> 
+      <Tab.Screen
+        name="LeaderboardScreen" 
+        component={LeaderboardScreen}
+        options={{ title:'Leaderboard' }} 
+      /> 
     </Tab.Navigator>
   );
 }

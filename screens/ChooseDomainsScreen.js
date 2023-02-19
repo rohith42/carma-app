@@ -1,13 +1,8 @@
 import { useState, useContext } from 'react';
 import {
     View,
-    KeyboardAvoidingView,
     StyleSheet,
     Text,
-    Platform,
-    TouchableWithoutFeedback,
-    Keyboard,
-    Pressable,
     SafeAreaView
 } from 'react-native';
 import { Checkbox, Button } from 'react-native-paper';
