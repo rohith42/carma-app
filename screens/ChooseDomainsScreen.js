@@ -10,7 +10,7 @@ import AppContext from '../store/AppContext';
 
 const DOMAINS = ["no-reply@uber.com", "no-reply@lyftmail.com"];
 
-export default function ChooseDomainsScreen({ navigation }) {
+export default function ChooseDomainsScreen({ navigation, route }) {
   const [domains, setDomains] = useState([]);  // String array of the domains
   const [loading, setLoading] = useState(false);
 
@@ -18,9 +18,9 @@ export default function ChooseDomainsScreen({ navigation }) {
   function register() {
     // TODO: IMPLEMENT THIS!!!
     setLoading(true);
-    console.log("Register user!");
+    console.log("Set the domains for this user on backend");
     setLoading(false);
-    setCookie("Random Cookie!");
+    setCookie(route.params.cookie);
   }
 
   function handlePress(e) {

@@ -50,6 +50,8 @@ export default function Savings({ navigation }) {
       </View>
 
       <Text style={styles.pastTrips}>Past trips</Text>
+
+      
       
     </View>
   );
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
   pastTrips: {
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 24,
     width: '100%',
     marginTop: 20,
     marginBottom: 10
