@@ -50,6 +50,8 @@ export default function Savings({ navigation }) {
       </View>
 
       <Text style={styles.pastTrips}>Past trips</Text>
+
+      
       
     </View>
   );
