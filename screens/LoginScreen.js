@@ -9,7 +9,7 @@ import {
     Platform,
     TouchableWithoutFeedback,
     Keyboard,
-    Pressable,
+    Pressable, Image
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -42,6 +42,9 @@ export default function LoginScreen({ navigation }) {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
+          <View style={styles.imageContainer}>
+            <Image source={require('../assets/CarmaLogo.png')} />
+          </View>
           <TextInput 
             mode='outlined' label='Email'
             placeholder='example.email@gmail.com' 
@@ -93,5 +96,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textDecorationLine: 'underline',
     textAlign: 'center'
+  },
+  imageContainer: {
+    width: '100%',
+    height: '50%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

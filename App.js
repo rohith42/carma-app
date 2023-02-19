@@ -89,16 +89,6 @@ function AuthenticatedStack() {
           ),  
         }} 
       /> 
-      <Tab.Screen
-        name="LeaderboardScreen" 
-        component={LeaderboardScreen}
-        options={{ 
-          title:'Leaderboard',
-          tabBarIcon: ({ color }) => (
-            <LeaderboardIcon color={color}/>
-          ), 
-        }} 
-      /> 
     </Tab.Navigator>
   );
 }
