@@ -56,7 +56,7 @@ function AuthenticatedStack() {
         tabBarActiveTintColor: COLORS.green,
         tabBarStyle: {
           paddingTop: 10,
-          paddingBottom: 20,
+          paddingBottom: 25,
         }
       }}
     >
