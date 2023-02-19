@@ -47,7 +47,9 @@ const Tab = createBottomTabNavigator();
 // Stack for autheticated users
 function AuthenticatedStack() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{ tabBarActiveTintColor:COLORS.green }}
+    >
       <Tab.Screen
         name="InsightsScreen" 
         component={InsightsScreen}
