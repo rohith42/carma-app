@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { get_trip, parse_trips } from '../api/trips.js';
 
 /**
  * Context is an app-wide state management system.
@@ -25,6 +26,30 @@ const AppContext = createContext();
 
 export function AppContextProvider({ children }) {
     const [cookie, setCookie] = useState("");
+    const [savingTrips, setSavingTrips] = useState([]);
+    const [emissionsTrips, setEmissionsTrips] = useState([]);
+    const [savingTotal, setSavingTotal] = useState(0);
+    const [emissionsTotal, setEmissionsTotal] = useState(0);
+
+    async function update() {
+        console.log("RUNNING UPDATE");
+        let trips = await get_trip(cookie);
+        console.log(trips);
+        const [savingTrips, emissionsTrips, savingTotal, emissionsTotal] = parse_trips(trips);
+        setSavingTrips(savingTrips);
+        setEmissionsTrips(emissionsTrips);
+        setSavingTotal(savingTotal);
+        setEmissionsTotal(emissionsTotal);
+        console.log("RAN UPDATE");
+        console.log(savingTrips);
+        console.log(savingTotal);
+    }
+
+    useEffect(() => {
+        if (cookie) {
+            update();
+        }
+    }, [cookie]);
 
     return (
         <AppContext.Provider

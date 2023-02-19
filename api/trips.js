@@ -16,37 +16,32 @@ export async function add_trip(token, username, company_name, emissions, date, t
     return response.data;
 }
 
-// Add a trip
+// Get trip data for user
 // Returns: list(str): list of trips
-export async function get_trip(token, username, company_name, emissions, date, trip_type) {
+export async function get_trip(token) {
     const route = "trip";
     const url = `${BASE_URL}/${route}`;
     const response = await axios.get(url, get_headers(token));
-    let data = JSON.parse(response.data);
-    return data['trips']
+    return response.data['trips']
 }
 
 // Parse trip data into JSON that gives { company_name: savings: emissions
 export function parse_trips(trips) {
-    let data = {}
+    let savingTrips = [];
+    let emissionsTrips = [];
+    let savingTotal = 0;
+    let emissionsTotal = 0;
     trips.forEach( (trip) => {
-        company_name = trip['company_name'];
-        if (!(company_name in data)) {
-            data[company_name] = {
-                'savings': 0,
-                'emissions': 0,
-                'trips': []
-            }
-        }
-        data[company_name]['trips'].append(trip);
         if (trip['emissions'] < 0) {
-            data[company_name]['savings'] -= trip['emissions']
+            savingTotal -= trip['emissions'];
+            savingTrips.push(trip);
         } else {
-            data[company_name]['emissions'] += trip['emissions']
+            emissionsTotal += trip['emissions'];
+            emissionsTrips.push(trip);
         }
     });
 
-    return data;
+    return [savingTrips, emissionsTrips, savingTotal, emissionsTotal];
 }
 
 // Add a trip
