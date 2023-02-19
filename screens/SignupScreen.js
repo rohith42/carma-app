@@ -7,7 +7,7 @@ import {
     Platform,
     TouchableWithoutFeedback,
     Keyboard,
-    Pressable,
+    Pressable, Image
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { COLORS } from '../styles/Colors';
@@ -38,16 +38,21 @@ export default function SignupScreen({ navigation }) {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
+        	<View style={styles.imageContainer}>
+            <Image source={require('../assets/CarmaLogo.png')} />
+          </View>
           <TextInput 
             mode='outlined' label='Name'
             placeholder='Full name' 
             value={name} onChangeText={setName}
+						outlineColor={COLORS.gray}
           />
           <View style={styles.spacing} />
           <TextInput 
             mode='outlined' label='Email'
             placeholder='example.email@gmail.com' 
             value={email} onChangeText={setEmail}
+						outlineColor={COLORS.gray}
             keyboardType='email-address'
           />
           <Text style={styles.reminder}>
@@ -56,7 +61,7 @@ export default function SignupScreen({ navigation }) {
           <TextInput 
             mode='outlined' label='Password'
             value={pass} onChangeText={setPass}
-            secureTextEntry
+            secureTextEntry outlineColor={COLORS.gray}
           />
           <View style={styles.btnContainer} >
             <Button mode='contained' onPress={register}>
@@ -76,6 +81,7 @@ const styles = StyleSheet.create({
   inner: {
     paddingHorizontal: 15,
     paddingVertical: 10,
+		paddingBottom: 150,
     flex: 1,
     justifyContent: 'center'
   },
@@ -100,5 +106,12 @@ const styles = StyleSheet.create({
   spacing: {
     width: '100%',
     height: 5
+  },
+	imageContainer: {
+    width: '100%',
+		marginTop: 15,
+    marginBottom: 30,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
