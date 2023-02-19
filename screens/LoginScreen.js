@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { COLORS } from '../styles/Colors';
 
 
 export default function LoginScreen({ navigation }) {
@@ -50,11 +51,12 @@ export default function LoginScreen({ navigation }) {
             placeholder='example.email@gmail.com' 
             value={email} onChangeText={setEmail}
             keyboardType='email-address'
+            outlineColor={COLORS.gray}
           />
           <TextInput 
             mode='outlined' label='Password'
             value={pass} onChangeText={setPass}
-            secureTextEntry
+            secureTextEntry outlineColor={COLORS.gray}
           />
           <View style={styles.btnContainer} >
             <Button mode='contained' onPress={login_button} loading={loading}>
@@ -79,8 +81,9 @@ const styles = StyleSheet.create({
   inner: {
     paddingHorizontal: 15,
     paddingVertical: 10,
+    paddingBottom: 150,
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   header: {
     fontSize: 36,
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: '50%',
+    marginBottom: 50,
     justifyContent: 'center',
     alignItems: 'center'
   }
