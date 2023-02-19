@@ -15,9 +15,9 @@ import TripItem from './TripItem';
 export default function Emissions({ navigation }) {
   const { setCookie } = useContext(AppContext);
 // How many kg carbon saved
-const [progress, setProgress] = useState(5.0);
+const [emissions, setEmissions] = useState(347.4);
 // carbon saved goal
-const goal = 20.0;
+const limit = 200;
 
 
 
@@ -27,7 +27,7 @@ return (
       <View>
         <Text style={styles.chartTitle}>Uber</Text>
         <ProgressChart 
-          data={[1, 1, 1, (progress/goal)]}
+          data={[1, 1, 1, (emissions/limit)]}
           width={200} height={200} hideLegend
           chartConfig={{
             backgroundGradientFrom: COLORS.lightGray,
@@ -40,11 +40,8 @@ return (
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.greenText}>
-          {`${progress} kg CO2e`}
-        </Text>
         <Text style={styles.grayText}>
-          {`${goal-progress} kg remaining`}
+          {`${emissions} CO2e kg`}
         </Text>
       </View>
     </View>
@@ -57,7 +54,7 @@ return (
     >
       {dummyData.map((o, i, a) => (
         <TripItem
-          color={COLORS.green}
+          color={COLORS.darkGray}
           carbon={o.carbon}
           date={o.date}
           time={o.time}
@@ -78,26 +75,59 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inner: {
-    paddingHorizontal: 15,
     paddingVertical: 10,
     flex: 1,
     alignItems: 'center',
-  },
-  fullWidth: {
-    width: '100%'
-  },  
-  prompt: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  btn: {
-    paddingVertical: 7,
-  },
-  checkboxContainer: {
     width: '100%',
-    borderWidth: 1,
+  },
+  chartCard: {
+    padding: 10,
+    width: '100%',
     borderRadius: 10,
-    marginVertical: 10,
+    backgroundColor: COLORS.lightGray,
+    flexDirection: 'row'
+  },
+  chartTitle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  greenText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 28,
+    color: COLORS.green,
+    marginVertical: 5,
+  },
+  grayText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: COLORS.darkGray,
+    marginVertical: 5,
+  },
+  pastTrips: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    width: '100%',
+    marginTop: 20,
+    marginBottom: 10
   }
 });
+
+
+const dummyData = [
+  { carbon: 23.4, date: "Jan 12", time: "3:12 PM", type: "Uber X" },
+  { carbon: 15.6, date: "Jan 12", time: "3:12 PM", type: "Uber X" },
+  { carbon: 17.3, date: "Jan 14", time: "3:12 PM", type: "Uber X" },
+  { carbon: 12.9, date: "Jan 17", time: "3:12 PM", type: "Uber X" },
+  { carbon: 9.7, date: "Jan 25", time: "3:12 PM", type: "Uber X" },
+  { carbon: 14.2, date: "Feb 1", time: "3:12 PM", type: "Uber X" },
+  { carbon: 8.6, date: "Feb 14", time: "3:12 PM", type: "Uber X" },
+  { carbon: 5.1, date: "Feb 19", time: "3:12 PM", type: "Uber X" },
+]
