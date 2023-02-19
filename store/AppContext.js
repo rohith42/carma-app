@@ -46,9 +46,11 @@ export function AppContextProvider({ children }) {
     }
 
     useEffect(() => {
-        if (cookie) {
-            update();
-        }
+        setInterval( () => {
+            if (cookie) {
+                update();
+            }
+        }, 60000);
     }, [cookie]);
 
     return (
