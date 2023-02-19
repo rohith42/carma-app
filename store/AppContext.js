@@ -19,7 +19,7 @@ import { get_trip, parse_trips } from '../api/trips.js';
  * I would type:
  *      const { phoneNum, setPhoneNum } = useContext(AppContext);
  * Make sure you import useContext and AppContext at the the top
- * of the file.
+ * of the file
  */
 
 const AppContext = createContext();
