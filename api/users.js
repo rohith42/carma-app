@@ -1,21 +1,26 @@
 import axios from "axios"
 import { BASE_URL } from "../server-conn.js";
-import { get_headers } from "util.js";
+import { get_headers } from "./util.js";
 
 // Login user.
-export async function login(token, username, password) {
+export async function login(email, password) {
     const route = "user/login";
     const url = `${BASE_URL}/${route}`;
-    const response = await axios.post(url, {
-        username: username,
+    console.log(url);
+    console.log(JSON.stringify({
+        email: email,
         password: password
-    }, get_headers(token));
+    }));
+    const response = await axios.post(url, {
+        email: email,
+        password: password
+    });
+    console.log(response);
     return response.data;
 }
 
-
 // Signup user.
-export async function login(token, username, password, email, full_name) {
+export async function signup(token, username, password, email, full_name) {
     const route = "user/signup";
     const url = `${BASE_URL}/${route}`;
     const response = await axios.post(url, {

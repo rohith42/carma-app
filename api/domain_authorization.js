@@ -1,6 +1,6 @@
 import axios from "axios"
 import { BASE_URL } from "../server-conn.js";
-import { get_headers } from "util.js";
+import { get_headers } from "./util.js";
 
 // Post authorization.
 export async function post_authorization(token, username, domains) {

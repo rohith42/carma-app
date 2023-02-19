@@ -1,6 +1,6 @@
 import axios from "axios"
 import { BASE_URL } from "../server-conn.js";
-import { get_headers } from "util.js";
+import { get_headers } from "./util.js";
 
 // Add a trip
 export async function add_trip(token, username, company_name, emissions, date, trip_type) {

@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import AppContext from '../store/AppContext';
+import { login } from '../api/users.js';
 import {
     View,
     KeyboardAvoidingView,
@@ -21,11 +22,16 @@ export default function LoginScreen({ navigation }) {
 
   const { setCookie } = useContext(AppContext);
 
-  function login() {
-    // TODO: IMPLEMENT THIS!!!
+  async function login_button() {
     setLoading(true);
     console.log("Login user!");
-    setCookie("Random Cookie");
+    console.log(email);
+    console.log(pass);
+    let data = await login(email, pass);
+    let token = data['token'];
+    console.log("TESTTTTTTT");
+    console.log(token);
+    setCookie(token);
     setLoading(false);
   }
   
@@ -48,7 +54,7 @@ export default function LoginScreen({ navigation }) {
             secureTextEntry
           />
           <View style={styles.btnContainer} >
-            <Button mode='contained' onPress={login} loading={loading}>
+            <Button mode='contained' onPress={login_button} loading={loading}>
               Log in
             </Button>
           </View>
