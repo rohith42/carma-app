@@ -15,7 +15,7 @@ import TripItem from './TripItem';
 
 
 export default function Savings({ navigation }) {
-  const { setCookie, savingTotal } = useContext(AppContext);
+  const { setCookie, savingTotal, savingTrips } = useContext(AppContext);
   // carbon saved goal
   const goal = 20.0;
   
@@ -52,21 +52,21 @@ export default function Savings({ navigation }) {
       <Text style={styles.pastTrips}>Past trips</Text>
 
       <ScrollView style={styles.container}
-        contentContainerStyle={{width:'100%'}}
-        directionalLockEnabled
-      >
-        {dummyData.map((o, i, a) => (
-          <TripItem
-            color={COLORS.green}
-            carbon={o.carbon}
-            date={o.date}
-            time={o.time}
-            type={o.type}
-            last={i === a.length-1}
-            key={i}
-          />
-        ))}
-      </ScrollView>
+      contentContainerStyle={{width:'100%'}}
+      directionalLockEnabled
+    >
+      {savingTrips.map((o, i, a) => (
+        <TripItem
+          color={COLORS.green}
+          carbon={-1*o.emissions.toFixed(2)}
+          date={new Date(o.date).toLocaleDateString('en-US', options={day: 'numeric', month: 'short'})}
+          time={new Date(o.date).toLocaleTimeString('en-US', options={hour: 'numeric', minute: 'numeric'})}
+          type={o.trip_type}
+          last={i === a.length-1}
+          key={i}
+        />
+      ))}
+    </ScrollView>
       
       
     </View>
@@ -122,15 +122,3 @@ const styles = StyleSheet.create({
     marginBottom: 10
   }
 });
-
-
-const dummyData = [
-  { carbon: 23.4, date: "Jan 12", time: "3:12 PM", type: "Uber X" },
-  { carbon: 15.6, date: "Jan 12", time: "3:12 PM", type: "Uber X" },
-  { carbon: 17.3, date: "Jan 14", time: "3:12 PM", type: "Uber X" },
-  { carbon: 12.9, date: "Jan 17", time: "3:12 PM", type: "Uber X" },
-  { carbon: 9.7, date: "Jan 25", time: "3:12 PM", type: "Uber X" },
-  { carbon: 14.2, date: "Feb 1", time: "3:12 PM", type: "Uber X" },
-  { carbon: 8.6, date: "Feb 14", time: "3:12 PM", type: "Uber X" },
-  { carbon: 5.1, date: "Feb 19", time: "3:12 PM", type: "Uber X" },
-]
