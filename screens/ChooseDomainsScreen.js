@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { Checkbox, Button } from 'react-native-paper';
 import AppContext from '../store/AppContext';
+import { post_authorization } from '../api/domain_authorization.js';
 
 const DOMAINS = ["no-reply@uber.com", "no-reply@lyftmail.com"];
 
@@ -15,12 +16,14 @@ export default function ChooseDomainsScreen({ navigation, route }) {
   const [loading, setLoading] = useState(false);
 
   const { setCookie } = useContext(AppContext);
-  function register() {
+  async function register() {
     // TODO: IMPLEMENT THIS!!!
     setLoading(true);
     console.log("Set the domains for this user on backend");
+    const cookie =   route.params.cookie;
+    let data = await post_authorization(cookie, domains);
     setLoading(false);
-    setCookie(route.params.cookie);
+    setCookie(cookie);
   }
 
   function handlePress(e) {

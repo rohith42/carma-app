@@ -26,8 +26,9 @@ export default function SignupScreen({ navigation }) {
     console.log("Register user and log them in!");
     let data = await signup(email, pass, name);
     console.log(data);
+    let cookie = data['token'];
     setLoading(false);
-    navigation.navigate('ChooseDomainsScreen', { cookie: "RANDOM COOKIE" });
+    navigation.navigate('ChooseDomainsScreen', { cookie: cookie });
   }
   
   return (
