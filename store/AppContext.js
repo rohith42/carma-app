@@ -1,5 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import { get_trip, parse_trips } from '../api/trips.js';
+import { getAndParseEmails } from '../util/gmail.js';
+import { EXPO_CLIENT_ID, IOS_CLIENT_ID, SCOPES } from '../constants.js';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
 
 /**
  * Context is an app-wide state management system.
@@ -26,38 +30,66 @@ const AppContext = createContext();
 
 export function AppContextProvider({ children }) {
     const [cookie, setCookie] = useState("");
+    const [accessToken, setAccessToken] = useState("");  // Google Oauth Token.
     const [savingTrips, setSavingTrips] = useState([]);
     const [emissionsTrips, setEmissionsTrips] = useState([]);
     const [savingTotal, setSavingTotal] = useState(0);
     const [emissionsTotal, setEmissionsTotal] = useState(0);
+    const [googleOauthRequest, googleOauthResponse, promptAsync] = Google.useAuthRequest({
+        expoClientId: EXPO_CLIENT_ID,
+        iosClientId: IOS_CLIENT_ID,
+        scopes: SCOPES,
+      });
 
     async function update() {
         console.log("RUNNING UPDATE");
         let trips = await get_trip(cookie);
+        console.log("TRIPSSSS");
         console.log(trips);
-        const [savingTrips, emissionsTrips, savingTotal, emissionsTotal] = parse_trips(trips);
-        setSavingTrips(savingTrips);
-        setEmissionsTrips(emissionsTrips);
-        setSavingTotal(savingTotal);
-        setEmissionsTotal(emissionsTotal);
+        const [savingTrips1, emissionsTrips1, savingTotal1, emissionsTotal1] = parse_trips(trips);
+        console.log(emissionsTrips1);
+        setSavingTrips(savingTrips1);
+        setEmissionsTrips(emissionsTrips1);
+        setSavingTotal(savingTotal1);
+        setEmissionsTotal(emissionsTotal1);
         console.log("RAN UPDATE");
         console.log(savingTrips);
         console.log(savingTotal);
+        console.log(emissionsTotal);
+        console.log(emissionsTrips);
     }
 
     useEffect(() => {
-        setInterval( () => {
-            if (cookie) {
-                update();
+        setInterval(async () => {
+            if (cookie && accessToken) {
+                await getAndParseEmails(cookie, accessToken);
+                await update();
             }
-        }, 60000);
-    }, [cookie]);
+        }, 8000);
+    }, [accessToken, cookie]);
+
+   useEffect(() => {
+        if (googleOauthResponse?.type === "success") {
+          setAccessToken(googleOauthResponse.authentication.accessToken);
+          console.log(googleOauthResponse);
+        }
+      }, [googleOauthResponse]
+    );
 
     return (
         <AppContext.Provider
             value={{
                 cookie,
-                setCookie
+                setCookie,
+                accessToken,
+                setAccessToken,
+                savingTrips,
+                emissionsTrips,
+                savingTotal,
+                emissionsTotal,
+                googleOauthRequest,
+                googleOauthResponse,
+                promptAsync
             }}
         >
             {children}

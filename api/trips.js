@@ -1,14 +1,14 @@
 import axios from "axios"
-import { BASE_URL } from "../server-conn.js";
+import { BASE_URL } from "../constants.js";
 import { get_headers } from "./util.js";
 
 // Add a trip
-export async function add_trip(token, username, company_name, emissions, date, trip_type) {
+export async function add_trip(token, email_id, company_domain, emissions, date, trip_type) {
     const route = "trip";
     const url = `${BASE_URL}/${route}`;
     const response = await axios.post(url, {
-        username: username,
-        company_name: company_name,
+        email_id: email_id,
+        company_domain: company_domain,
         emissions: emissions,
         date: date,
         trip_type: trip_type
@@ -22,7 +22,8 @@ export async function get_trip(token) {
     const route = "trip";
     const url = `${BASE_URL}/${route}`;
     const response = await axios.get(url, get_headers(token));
-    return response.data['trips']
+    console.log(response.data);
+    return response.data;
 }
 
 // Parse trip data into JSON that gives { company_name: savings: emissions
