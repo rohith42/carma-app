@@ -7,6 +7,10 @@ import { StatusBar } from 'expo-status-bar';
 import { Provider as PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper';
 import { COLORS } from './styles/Colors';
 
+import InsightsIcon from './components/InsightsIcon';
+import LeaderboardIcon from './components/LeaderboardIcon';
+import RewardsIcon from './components/RewardsIcon';
+
 import AppContext, { AppContextProvider } from './store/AppContext';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
@@ -48,22 +52,43 @@ const Tab = createBottomTabNavigator();
 function AuthenticatedStack() {
   return (
     <Tab.Navigator
-      screenOptions={{ tabBarActiveTintColor:COLORS.green }}
+      screenOptions={{ 
+        tabBarActiveTintColor: COLORS.green,
+        tabBarStyle: {
+          paddingTop: 10,
+          paddingBottom: 20,
+        }
+      }}
     >
       <Tab.Screen
         name="InsightsScreen" 
         component={InsightsScreen}
-        options={{ title:'Insights' }} 
+        options={{ 
+          title:'Insights', 
+          tabBarIcon: ({ color }) => (
+            <InsightsIcon color={color}/>
+          ),
+        }} 
       /> 
       <Tab.Screen
         name="RewardsScreen" 
         component={RewardsScreen}
-        options={{ title:'Rewards' }} 
+        options={{ 
+          title:'Rewards',
+          tabBarIcon: ({ color }) => (
+            <RewardsIcon color={color}/>
+          ),  
+        }} 
       /> 
       <Tab.Screen
         name="LeaderboardScreen" 
         component={LeaderboardScreen}
-        options={{ title:'Leaderboard' }} 
+        options={{ 
+          title:'Leaderboard',
+          tabBarIcon: ({ color }) => (
+            <LeaderboardIcon color={color}/>
+          ), 
+        }} 
       /> 
     </Tab.Navigator>
   );
