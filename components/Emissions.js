@@ -13,11 +13,9 @@ import { COLORS } from '../styles/Colors';
 import TripItem from './TripItem';
 
 export default function Emissions({ navigation }) {
-  const { setCookie } = useContext(AppContext);
-// How many kg carbon saved
-const [emissions, setEmissions] = useState(347.4);
+  const { setCookie, emissionsTotal, emissionsTrips } = useContext(AppContext);
 // carbon saved goal
-const limit = 200;
+const limit = 20;
 
 
 
@@ -27,7 +25,7 @@ return (
       <View>
         <Text style={styles.chartTitle}>Uber</Text>
         <ProgressChart 
-          data={[1, 1, 1, (emissions/limit)]}
+          data={[1, 1, 1, (emissionsTotal/limit)]}
           width={200} height={200} hideLegend
           chartConfig={{
             backgroundGradientFrom: COLORS.lightGray,
@@ -41,7 +39,7 @@ return (
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.grayText}>
-          {`${emissions} CO2e kg`}
+          {`${emissionsTotal.toFixed(2)} CO2e kg`}
         </Text>
       </View>
     </View>
@@ -52,13 +50,13 @@ return (
       contentContainerStyle={{width:'100%'}}
       directionalLockEnabled
     >
-      {dummyData.map((o, i, a) => (
+      {emissionsTrips.map((o, i, a) => (
         <TripItem
           color={COLORS.darkGray}
-          carbon={o.carbon}
-          date={o.date}
-          time={o.time}
-          type={o.type}
+          carbon={o.emissions.toFixed(2)}
+          date={new Date(o.date).toLocaleDateString('en-US', options={day: 'numeric', month: 'short'})}
+          time={new Date(o.date).toLocaleTimeString('en-US', options={hour: 'numeric', minute: 'numeric'})}
+          type={o.trip_type}
           last={i === a.length-1}
           key={i}
         />
@@ -119,15 +117,3 @@ const styles = StyleSheet.create({
     marginBottom: 10
   }
 });
-
-
-const dummyData = [
-  { carbon: 23.4, date: "Jan 12", time: "3:12 PM", type: "Uber X" },
-  { carbon: 15.6, date: "Jan 12", time: "3:12 PM", type: "Uber X" },
-  { carbon: 17.3, date: "Jan 14", time: "3:12 PM", type: "Uber X" },
-  { carbon: 12.9, date: "Jan 17", time: "3:12 PM", type: "Uber X" },
-  { carbon: 9.7, date: "Jan 25", time: "3:12 PM", type: "Uber X" },
-  { carbon: 14.2, date: "Feb 1", time: "3:12 PM", type: "Uber X" },
-  { carbon: 8.6, date: "Feb 14", time: "3:12 PM", type: "Uber X" },
-  { carbon: 5.1, date: "Feb 19", time: "3:12 PM", type: "Uber X" },
-]
