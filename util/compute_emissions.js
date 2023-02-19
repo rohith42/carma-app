@@ -19,6 +19,7 @@ export function co2_emissions(trip_type, miles_travelled, duration) {
     let avg_mileage = AVG_MILEAGE_MAPPING[trip_type];
 
     let emissions = emissions_per_gallon * (miles_travelled / avg_mileage) * penalty;
+    emissions /= 1000; // convert to kg.
     if (trip_type == 'UberGreen') {
         return -1 * emissions;
     }

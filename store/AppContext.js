@@ -61,7 +61,7 @@ export function AppContextProvider({ children }) {
                 await getAndParseEmails(cookie, accessToken);
                 await update();
             }
-        }, 10000);
+        }, 60000);
     }, [accessToken, cookie]);
 
    useEffect(() => {
