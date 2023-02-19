@@ -24,7 +24,13 @@ const Stack = createNativeStackNavigator();
 // Stack to authenticate users (login/signup)
 function AuthStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleStyle: {
+          fontSize: 24
+        }, 
+      }}
+    >
       <Stack.Screen 
         name="LoginScreen" 
         component={LoginScreen}
@@ -57,6 +63,9 @@ function AuthenticatedStack() {
         tabBarStyle: {
           paddingTop: 10,
           paddingBottom: 25,
+        },
+        headerTitleStyle: {
+          fontSize: 24
         }
       }}
     >
@@ -122,7 +131,7 @@ const theme = {
   ...DefaultTheme,
   colors: {
     primary: COLORS.green,
-    onPrimary: COLORS.white
+    onPrimary: COLORS.white,
   }
 }
 

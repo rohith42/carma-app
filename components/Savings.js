@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   pastTrips: {
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 24,
     width: '100%',
     marginTop: 20,
     marginBottom: 10

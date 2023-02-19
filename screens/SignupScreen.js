@@ -18,6 +18,14 @@ export default function SignupScreen({ navigation }) {
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+
+  function register() {
+    // TODO: IMPLEMENT THIS!!!
+    setLoading(true);
+    console.log("Register user and log them in!");
+    setLoading(false);
+    navigation.navigate('ChooseDomainsScreen', { cookie: "RANDOM COOKIE" });
+  }
   
   return (
     <KeyboardAvoidingView
@@ -47,7 +55,7 @@ export default function SignupScreen({ navigation }) {
             secureTextEntry
           />
           <View style={styles.btnContainer} >
-            <Button mode='contained' onPress={() => {navigation.navigate('ChooseDomainsScreen')}}>
+            <Button mode='contained' onPress={register}>
               Sign up
             </Button>
           </View>
