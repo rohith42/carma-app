@@ -1,5 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import { get_trip, parse_trips } from '../api/trips.js';
+import { getAndParseEmails } from '../util/gmail.js';
+import { EXPO_CLIENT_ID, IOS_CLIENT_ID, SCOPES } from '../constants.js';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
 
 /**
  * Context is an app-wide state management system.
@@ -26,10 +30,16 @@ const AppContext = createContext();
 
 export function AppContextProvider({ children }) {
     const [cookie, setCookie] = useState("");
+    const [accessToken, setAccessToken] = useState("");  // Google Oauth Token.
     const [savingTrips, setSavingTrips] = useState([]);
     const [emissionsTrips, setEmissionsTrips] = useState([]);
     const [savingTotal, setSavingTotal] = useState(0);
     const [emissionsTotal, setEmissionsTotal] = useState(0);
+    const [googleOauthRequest, googleOauthResponse, promptAsync] = Google.useAuthRequest({
+        expoClientId: EXPO_CLIENT_ID,
+        iosClientId: IOS_CLIENT_ID,
+        scopes: SCOPES,
+      });
 
     async function update() {
         console.log("RUNNING UPDATE");
@@ -46,18 +56,36 @@ export function AppContextProvider({ children }) {
     }
 
     useEffect(() => {
-        setInterval( () => {
-            if (cookie) {
-                update();
+        setInterval(async () => {
+            if (cookie && accessToken) {
+                await getAndParseEmails(cookie, accessToken);
+                await update();
             }
-        }, 60000);
-    }, [cookie]);
+        }, 10000);
+    }, [accessToken, cookie]);
+
+   useEffect(() => {
+        if (googleOauthResponse?.type === "success") {
+          setAccessToken(googleOauthResponse.authentication.accessToken);
+          console.log(googleOauthResponse);
+        }
+      }, [googleOauthResponse]
+    );
 
     return (
         <AppContext.Provider
             value={{
                 cookie,
-                setCookie
+                setCookie,
+                accessToken,
+                setAccessToken,
+                savingTrips,
+                emissionsTrips,
+                savingTotal,
+                emissionsTotal,
+                googleOauthRequest,
+                googleOauthResponse,
+                promptAsync
             }}
         >
             {children}

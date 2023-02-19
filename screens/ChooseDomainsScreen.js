@@ -9,13 +9,13 @@ import { Checkbox, Button } from 'react-native-paper';
 import AppContext from '../store/AppContext';
 import { post_authorization } from '../api/domain_authorization.js';
 
-const DOMAINS = ["no-reply@uber.com", "no-reply@lyftmail.com"];
+const DOMAINS = ["noreply@uber.com", "noreply@lyftmail.com"];
 
 export default function ChooseDomainsScreen({ navigation, route }) {
   const [domains, setDomains] = useState([]);  // String array of the domains
   const [loading, setLoading] = useState(false);
 
-  const { setCookie } = useContext(AppContext);
+  const { setCookie, promptAsync } = useContext(AppContext);
   async function register() {
     // TODO: IMPLEMENT THIS!!!
     setLoading(true);
@@ -24,6 +24,9 @@ export default function ChooseDomainsScreen({ navigation, route }) {
     let data = await post_authorization(cookie, domains);
     setLoading(false);
     setCookie(cookie);
+
+    // Gmail stuff.
+    await promptAsync();  // This will automatically populate the googleOauthResponse stuff.
   }
 
   function handlePress(e) {

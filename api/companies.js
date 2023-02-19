@@ -1,5 +1,5 @@
 import axios from "axios"
-import { BASE_URL } from "../server-conn.js";
+import { BASE_URL } from "../constants.js";
 import { get_headers } from "./util.js";
 
 // Get all the company email daims.
