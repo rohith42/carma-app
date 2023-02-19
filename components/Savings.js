@@ -15,9 +15,7 @@ import TripItem from './TripItem';
 
 
 export default function Savings({ navigation }) {
-  const { setCookie } = useContext(AppContext);
-  // How many kg carbon saved
-  const [progress, setProgress] = useState(5.0);
+  const { setCookie, savingTotal } = useContext(AppContext);
   // carbon saved goal
   const goal = 20.0;
   
@@ -29,7 +27,7 @@ export default function Savings({ navigation }) {
         <View>
           <Text style={styles.chartTitle}>Uber</Text>
           <ProgressChart 
-            data={[1, 1, 1, (progress/goal)]}
+            data={[1, 1, 1, (savingTotal/goal)]}
             width={200} height={200} hideLegend
             chartConfig={{
               backgroundGradientFrom: COLORS.lightGray,
@@ -43,10 +41,10 @@ export default function Savings({ navigation }) {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.greenText}>
-            {`${progress} kg CO2e`}
+            {`${savingTotal} kg CO2e`}
           </Text>
           <Text style={styles.grayText}>
-            {`${goal-progress} kg remaining`}
+            {`${goal-savingTotal} kg remaining`}
           </Text>
         </View>
       </View>

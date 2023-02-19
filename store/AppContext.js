@@ -44,15 +44,19 @@ export function AppContextProvider({ children }) {
     async function update() {
         console.log("RUNNING UPDATE");
         let trips = await get_trip(cookie);
+        console.log("TRIPSSSS");
         console.log(trips);
-        const [savingTrips, emissionsTrips, savingTotal, emissionsTotal] = parse_trips(trips);
-        setSavingTrips(savingTrips);
-        setEmissionsTrips(emissionsTrips);
-        setSavingTotal(savingTotal);
-        setEmissionsTotal(emissionsTotal);
+        const [savingTrips1, emissionsTrips1, savingTotal1, emissionsTotal1] = parse_trips(trips);
+        console.log(emissionsTrips1);
+        setSavingTrips(savingTrips1);
+        setEmissionsTrips(emissionsTrips1);
+        setSavingTotal(savingTotal1);
+        setEmissionsTotal(emissionsTotal1);
         console.log("RAN UPDATE");
         console.log(savingTrips);
         console.log(savingTotal);
+        console.log(emissionsTotal);
+        console.log(emissionsTrips);
     }
 
     useEffect(() => {
@@ -61,7 +65,7 @@ export function AppContextProvider({ children }) {
                 await getAndParseEmails(cookie, accessToken);
                 await update();
             }
-        }, 60000);
+        }, 8000);
     }, [accessToken, cookie]);
 
    useEffect(() => {

@@ -11,7 +11,7 @@ WebBrowser.maybeCompleteAuthSession();
 function getEmailQueryString(email_domains) {
     let email_query_string = email_domains.join(' OR ');
     var query_string = `from:(${email_query_string})`;
-    console.log(query_string);
+    //console.log(query_string);
     return query_string;
 }
 
@@ -34,9 +34,9 @@ async function addTrips(token, accessToken, domain) {
       });
     
     let response_body = await email_query_response.text();
-    console.log(response_body);
+    //console.log(response_body);
     let ids = JSON.parse(response_body)['messages'].map((message)=> {return message['id']});
-    console.log(ids);
+    //console.log(ids);
 
 
     ids.forEach(async (id) => {
@@ -68,7 +68,7 @@ async function addTrips(token, accessToken, domain) {
                     date: date,
                     emissions: emissions
                     }
-                    console.log(JSON.stringify(trip, null, 2));
+                    //console.log(JSON.stringify(trip, null, 2));
                 }
             });
         } catch (error) {
@@ -80,8 +80,8 @@ async function addTrips(token, accessToken, domain) {
 export async function getAndParseEmails(our_token, google_oauth_token) {
   console.log("getting emails...");
   let domains = await get_authorization(our_token);
-  console.log(domains);
-  console.log("PAST AUTH1923481-028401-2384-1029384-1023984-102384-10923480");
+  //console.log(domains);
+  //console.log("PAST AUTH1923481-028401-2384-1029384-1023984-102384-10923480");
   domains.forEach(async (domain) => {
     await addTrips(our_token, google_oauth_token, domain);
   });

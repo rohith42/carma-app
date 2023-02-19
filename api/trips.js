@@ -22,7 +22,8 @@ export async function get_trip(token) {
     const route = "trip";
     const url = `${BASE_URL}/${route}`;
     const response = await axios.get(url, get_headers(token));
-    return response.data['trips']
+    console.log(response.data);
+    return response.data;
 }
 
 // Parse trip data into JSON that gives { company_name: savings: emissions

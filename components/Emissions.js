@@ -13,11 +13,9 @@ import { COLORS } from '../styles/Colors';
 import TripItem from './TripItem';
 
 export default function Emissions({ navigation }) {
-  const { setCookie } = useContext(AppContext);
-// How many kg carbon saved
-const [emissions, setEmissions] = useState(347.4);
+  const { setCookie, emissionsTotal } = useContext(AppContext);
 // carbon saved goal
-const limit = 200;
+const limit = 20;
 
 
 
@@ -27,7 +25,7 @@ return (
       <View>
         <Text style={styles.chartTitle}>Uber</Text>
         <ProgressChart 
-          data={[1, 1, 1, (emissions/limit)]}
+          data={[1, 1, 1, (emissionsTotal/limit)]}
           width={200} height={200} hideLegend
           chartConfig={{
             backgroundGradientFrom: COLORS.lightGray,
@@ -41,7 +39,7 @@ return (
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.grayText}>
-          {`${emissions} CO2e kg`}
+          {`${emissionsTotal} CO2e kg`}
         </Text>
       </View>
     </View>
