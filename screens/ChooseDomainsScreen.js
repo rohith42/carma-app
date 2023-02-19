@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
     View,
     KeyboardAvoidingView,
@@ -11,6 +11,7 @@ import {
     SafeAreaView
 } from 'react-native';
 import { Checkbox, Button } from 'react-native-paper';
+import AppContext from '../store/AppContext';
 
 const DOMAINS = ["no-reply@uber.com", "no-reply@lyftmail.com"];
 
@@ -18,11 +19,13 @@ export default function ChooseDomainsScreen({ navigation }) {
   const [domains, setDomains] = useState([]);  // String array of the domains
   const [loading, setLoading] = useState(false);
 
+  const { setCookie } = useContext(AppContext);
   function register() {
     // TODO: IMPLEMENT THIS!!!
     setLoading(true);
     console.log("Register user!");
     setLoading(false);
+    setCookie("Random Cookie!");
   }
 
   function handlePress(e) {
@@ -63,7 +66,10 @@ export default function ChooseDomainsScreen({ navigation }) {
           }
         </View>
         <View style={styles.fullWidth}>
-          <Button mode='contained' onPress={register} loading={loading}>
+          <Button 
+            mode='contained' onPress={register} loading={loading}
+            labelStyle={{ fontSize: 18 }} contentStyle={styles.btn}
+          >
             Continue
           </Button>
         </View>
@@ -92,9 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   btn: {
-    width: '70%',
-    alignSelf: 'center',
-    marginVertical: 20,
+    paddingVertical: 7,
   },
   checkboxContainer: {
     width: '100%',
